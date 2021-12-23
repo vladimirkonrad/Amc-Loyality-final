@@ -9,15 +9,6 @@ import Foundation
 import SwiftyJSON
 
 
-struct Products: Decodable {
-    let title: String
-    let permalink: String
-    let price: String
- 
-}
-
-
-
 // MARK: - Kategorije
 struct Kategorije: Decodable {
     let productCategories: [ProductCategory]
@@ -42,3 +33,49 @@ struct ProductCategory: Decodable{
     
 }
 
+
+// MARK: - Product
+
+struct Product: Decodable {
+    let name: String?
+    let permalink: String?
+    let sku: String?
+    let price: String?
+    let description: String?
+    let images: [Slika]
+//    let images: String?
+    
+}
+
+struct Slika: Decodable{
+    let src: String
+}
+
+
+//struct ProductData: Decodable {
+//
+//    let name: String
+//    let images: Images
+//
+//    var model: ProductModel{
+//      return ProductModel (productName: name, src: images.src )
+//
+//
+//    }
+//
+//}
+//
+//struct Images: Decodable {
+//    let src: String
+//}
+//
+//struct ProductModel {
+//    let productName: String
+//   let src: String
+//}
+//
+//
+//struct WeatherDataFailure: Decodable {
+//    let message: String
+//}
+//

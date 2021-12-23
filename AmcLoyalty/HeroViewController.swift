@@ -29,6 +29,20 @@ extension UIImageView {
 }
 
 
+extension String {
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return nil }
+        do {
+            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            return nil
+        }
+    }
+    var htmlToString: String {
+        return htmlToAttributedString?.string ?? ""
+    }
+}
+
 
 class HeroViewController: UIViewController {
    
@@ -39,21 +53,31 @@ class HeroViewController: UIViewController {
     @IBOutlet weak var legsLbl: UILabel!
     
     var hero:HeroStats?
+    var product:Product?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     
-        nameLbl.text = hero?.localized_name
-        attributeLbl.text = hero?.primary_attr
-        attributeLbl.text = hero?.attack_type
-        legsLbl.text = "\(String(describing: hero?.legs))"
+//        nameLbl.text = hero?.localized_name
+//        attributeLbl.text = hero?.primary_attr
+//        attributeLbl.text = hero?.attack_type
+//        legsLbl.text = "\(String(describing: hero?.legs))"
+
+        nameLbl.text = product?.name
+        attributeLbl.text = product?.price
+        attackLbl.text = product?.sku
+ //       legsLbl.text = product?.description
+        legsLbl.attributedText = product?.description?.htmlToAttributedString
         
-        let urlString = "https://api.opendota.com" + (hero?.img)!
-        let url = URL(string: urlString)
-        imageView.downloaded(from: url!)
-    
+       
+//        let urlString = "https://api.opendota.com" + (hero?.img)!
+//        let url = URL(string: urlString)
+        
+        let urlSlike = product?.images.first?.src
+        imageView.downloaded(from: urlSlike!)
+
     }
     
 
